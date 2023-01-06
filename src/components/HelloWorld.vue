@@ -2,13 +2,14 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a
+      For a guide and recipes on how to configure / customize this project,<br>check
+      out the<a
         href="https://cli.vuejs.org"
         target="_blank"
         rel="noopener"
-      >vue-cli documentation</a>.
+      >
+        vue-cli documentation 
+      </a>.
     </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
@@ -17,14 +18,18 @@
           href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
           target="_blank"
           rel="noopener"
-        >babel</a>
+        >
+          babel
+        </a>
       </li>
       <li>
         <a
           href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
           target="_blank"
           rel="noopener"
-        >eslint</a>
+        >
+          eslint
+        </a>
       </li>
     </ul>
     <h3>Essential Links</h3>
@@ -34,7 +39,9 @@
           href="https://vuejs.org"
           target="_blank"
           rel="noopener"
-        >Core Docs</a>
+        >
+          Core Docs
+        </a>
       </li>
       <li>
         <a
@@ -48,7 +55,9 @@
           href="https://chat.vuejs.org"
           target="_blank"
           rel="noopener"
-        >Community Chat</a>
+        >
+          Community Chat
+        </a>
       </li>
       <li>
         <a
@@ -110,8 +119,11 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
-  }
+    msg: {
+      type: String,
+      default: 'default message',
+    },
+  },
 }
 </script>
 

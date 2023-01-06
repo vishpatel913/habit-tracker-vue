@@ -12,5 +12,15 @@
   "parserOptions": {
     "parser": "@babel/eslint-parser"
   },
-  "rules": {}
+  "rules": {
+    /*
+     * ESLint core rules
+     * these are mostly the same as our Prettier config settings
+     */
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
+    "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+    "comma-dangle": ["error", "always-multiline"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "never"]
+  }
 }
