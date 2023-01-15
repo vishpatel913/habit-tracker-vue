@@ -6,6 +6,8 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
+import AppLayout from './layouts/AppLayout.vue'
+
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
   authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
@@ -19,4 +21,8 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig)
 
-createApp(App).use(router).use(store).mount('#app')
+createApp(App)
+  .use(router)
+  .use(store)
+  .component('AppLayout', AppLayout)
+  .mount('#app')
