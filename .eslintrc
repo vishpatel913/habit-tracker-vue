@@ -7,8 +7,10 @@
     "eslint:recommended",
     "plugin:vue/vue3-recommended",
     "plugin:vue/vue3-essential",
-    "plugin:vue/vue3-strongly-recommended"
+    "plugin:vue/vue3-strongly-recommended",
+    "prettier"
   ],
+  "plugins": ["prettier"],
   "parserOptions": {
     "parser": "@babel/eslint-parser"
   },
@@ -18,9 +20,10 @@
      * these are mostly the same as our Prettier config settings
      */
     "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
-    "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+    "brace-style": [2],
     "comma-dangle": ["error", "always-multiline"],
     "quotes": ["error", "single", { "avoidEscape": true }],
-    "semi": ["error", "never"]
+    "semi": ["error", "never"],
+    "no-unused-vars": ["warn"]
   }
 }
