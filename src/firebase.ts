@@ -1,12 +1,6 @@
-import { createApp } from 'vue'
-import { initializeApp } from 'firebase/app'
-
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import './registerServiceWorker'
-
-import AppLayout from './layouts/AppLayout.vue'
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
@@ -17,12 +11,10 @@ const firebaseConfig = {
   messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.VUE_APP_FIREBASE_APP_ID,
   measurementId: process.env.VUE_APP_FIREBASE_MEASUREMENT_ID,
-}
+};
 
-initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
 
-createApp(App)
-  .use(router)
-  .use(store)
-  .component('AppLayout', AppLayout)
-  .mount('#app')
+export { app, auth, db };
