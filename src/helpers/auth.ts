@@ -1,5 +1,5 @@
-import { useStore } from "vuex";
 import { signInWithRedirect, GoogleAuthProvider } from "firebase/auth";
+import { useStore } from "@/store";
 // import { ref, child, get, set } from "firebase/database";
 import { auth, db } from "@/firebase";
 
