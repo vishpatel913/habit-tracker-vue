@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { useAuth } from "@/modules/auth";
+import { useAuth } from "@/helpers/auth";
 
 const route = useRoute();
 useAuth();
