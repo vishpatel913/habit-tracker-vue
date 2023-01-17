@@ -1,23 +1,14 @@
 <template>
-  <app-layout>
-    <router-view />
-  </app-layout>
+  <config-provider theme="dark">
+    <app-layout>
+      <router-view />
+    </app-layout>
+  </config-provider>
 </template>
 
-<style>
-html,
-body {
-  height: 100%;
-}
+<script setup lang="ts">
+import { ConfigProvider } from "vant";
+import AppLayout from "@/layouts/AppLayout.vue";
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  background-color: #2c3e50;
-  color: #ffffff;
-  height: 100%;
-  padding: 1rem;
-}
-</style>
+import "./App.css";
+</script>
