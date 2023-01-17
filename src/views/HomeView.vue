@@ -7,13 +7,13 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useStore } from "@/store";
+import useUserStore from "@/stores/user";
 
-const store = useStore();
+const userStore = useUserStore();
 
 const user = computed(() => ({
-  ...store.getters.user,
-  isLoggedIn: store.getters.isLoggedIn,
+  ...userStore.user,
+  isLoggedIn: userStore.isLoggedIn,
 }));
 
 const helloMessage = computed(() =>
