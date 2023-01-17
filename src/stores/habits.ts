@@ -4,6 +4,11 @@ import { defineStore } from "pinia";
 import {} from "@/firebase";
 import { Habit } from "@/models/habit.model";
 
+// const mockHabits: Habit[] = [
+//   { id: "HABIT_ID_1", title: "Smoke Free", days: [], active: true },
+//   { id: "HABIT_ID_2", title: "Physio Exercises", days: [], active: true },
+// ];
+
 type RootState = {
   habits: Habit[];
 };
@@ -42,6 +47,17 @@ const useHabitsStore = defineStore("habits", {
       const filteredHabitList = this.habits.filter((habit) => habit.id !== id);
       this.habits = filteredHabitList;
       return id;
+    },
+    toggleHabitDate(id: string, date: string) {
+      const habit = this.habitById(id);
+      if (!habit) return;
+      const [dateId] = date.split("T");
+      const nextDays = habit.days.includes(dateId)
+        ? habit.days.filter((day) => day !== dateId)
+        : habit.days.concat(dateId);
+      const updatedHabit = { ...habit, days: nextDays };
+      this.updateHabit(id, updatedHabit);
+      return updatedHabit;
     },
   },
 });

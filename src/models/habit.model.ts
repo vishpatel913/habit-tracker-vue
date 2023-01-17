@@ -4,7 +4,7 @@ type HEX = `#${string}`;
 
 type Color = RGB | RGBA | HEX;
 
-type Date = `${number}-${number}-${number}`;
+// type Date = `${number}-${number}-${number}`;
 
 export interface Habit {
   id: string;
@@ -12,6 +12,6 @@ export interface Habit {
   description?: string;
   icon?: string;
   color?: Color;
-  days: Date[];
+  days: string[];
   active?: boolean;
 }
