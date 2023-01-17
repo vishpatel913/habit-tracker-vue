@@ -2,7 +2,7 @@ import { setActivePinia, createPinia } from "pinia";
 import useHabits from "@/stores/habits";
 
 const TEST_HABIT = {
-  title: "Test habit",
+  label: "Test habit",
   days: [],
 };
 
@@ -18,7 +18,7 @@ describe("Habits Store", () => {
     habitsStore.createHabit(TEST_HABIT);
     expect(habitsStore.habits).toHaveLength(1);
     expect(habitsStore.habits).toMatchObject([
-      { id: expect.any(String), title: "Test habit", days: [] },
+      { id: expect.any(String), label: "Test habit", days: [] },
     ]);
   });
 
@@ -27,13 +27,13 @@ describe("Habits Store", () => {
     const createdHabit = habitsStore.createHabit(TEST_HABIT);
 
     habitsStore.updateHabit(createdHabit.id, {
-      title: "New title",
+      label: "New label",
       description: "some desc",
     });
     expect(habitsStore.habits).toHaveLength(1);
     const updatedHabit = habitsStore.habits[0];
     expect(updatedHabit.id).toBe(createdHabit.id);
-    expect(updatedHabit.title).toBe("New title");
+    expect(updatedHabit.label).toBe("New label");
     expect(updatedHabit.description).toBe("some desc");
   });
 

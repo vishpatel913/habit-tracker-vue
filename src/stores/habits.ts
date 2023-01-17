@@ -5,8 +5,8 @@ import {} from "@/firebase";
 import { Habit } from "@/models/habit.model";
 
 // const mockHabits: Habit[] = [
-//   { id: "HABIT_ID_1", title: "Smoke Free", days: [], active: true },
-//   { id: "HABIT_ID_2", title: "Physio Exercises", days: [], active: true },
+//   { id: "HABIT_ID_1", label: "Smoke Free", days: [], active: true },
+//   { id: "HABIT_ID_2", label: "Physio Exercises", days: [], active: true },
 // ];
 
 type RootState = {

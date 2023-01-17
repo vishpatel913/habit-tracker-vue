@@ -8,7 +8,7 @@ type Color = RGB | RGBA | HEX;
 
 export interface Habit {
   id: string;
-  title: string;
+  label: string;
   description?: string;
   icon?: string;
   color?: Color;
