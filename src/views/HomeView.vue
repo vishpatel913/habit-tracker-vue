@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import HelloWorld from "@/components/HelloWorld.vue";
 import useUserStore from "@/stores/user";
 
 const userStore = useUserStore();
@@ -19,16 +20,4 @@ const user = computed(() => ({
 const helloMessage = computed(() =>
   user.value.isLoggedIn ? `Hello ${user.value.name}` : "Signing in..."
 );
-</script>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
-export default defineComponent({
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-});
 </script>

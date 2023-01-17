@@ -13,8 +13,8 @@ import useUserStore from "@/stores/user";
 const route = useRoute();
 const userStore = useUserStore();
 
-auth.onAuthStateChanged(() => {
-  userStore.signInWithGoogleRedirect();
+auth.onAuthStateChanged((user) => {
+  userStore.signInWithGoogleRedirect(user);
 });
 
 const layout = computed(() =>

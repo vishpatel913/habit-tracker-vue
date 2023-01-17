@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import {
   GoogleAuthProvider,
-  getRedirectResult,
+  // getRedirectResult,
   signInWithRedirect,
+  User as AuthUser,
 } from "firebase/auth";
 
 import { auth } from "@/firebase";
@@ -20,9 +21,9 @@ const useUserStore = defineStore("user", {
   }),
 
   actions: {
-    async signInWithGoogleRedirect() {
-      const result = await getRedirectResult(auth);
-      const { user } = result || {};
+    async signInWithGoogleRedirect(user: AuthUser | null) {
+      // const result = await getRedirectResult(auth);
+      // const { user } = result || {};
       this.isLoggedIn = !!user;
       if (!user) {
         const provider = new GoogleAuthProvider();
