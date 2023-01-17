@@ -4,6 +4,7 @@ import {
   getRedirectResult,
   signInWithRedirect,
 } from "firebase/auth";
+
 import { auth } from "@/firebase";
 import { User } from "@/models/user.model";
 

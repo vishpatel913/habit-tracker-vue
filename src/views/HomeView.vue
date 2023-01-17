@@ -17,7 +17,7 @@ const user = computed(() => ({
 }));
 
 const helloMessage = computed(() =>
-  user.value.isLoggedIn ? `Hello ${user.value.name}` : "Not Logged In"
+  user.value.isLoggedIn ? `Hello ${user.value.name}` : "Signing in..."
 );
 </script>
 
