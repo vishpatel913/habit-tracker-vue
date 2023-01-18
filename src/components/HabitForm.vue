@@ -19,7 +19,7 @@
         />
         <Field
           v-model="selectedDatesValue"
-          name="selectedDates"
+          name="dateList"
           label="Days Achieved"
           placeholder="Select days"
           type="textarea"
@@ -47,7 +47,7 @@
 import { ref, defineEmits } from "vue";
 import { Form, Field, CellGroup, Button, Calendar } from "vant";
 import { formatDate, getLastSuccessiveList } from "@/helpers/date";
-import { CreateHabitArg } from "@/models/habit.model";
+import { UpdateHabitArg } from "@/models/habit.model";
 
 const label = ref();
 const description = ref();
@@ -57,7 +57,7 @@ const selectedDatesValue = ref<string>();
 const showCalendar = ref(false);
 
 const emit = defineEmits<{
-  (e: "submit", newHabit: CreateHabitArg): void;
+  (e: "submit", newHabit: UpdateHabitArg): void;
 }>();
 
 const maxDate = new Date();
@@ -71,7 +71,7 @@ const onCalendarConfirm = (values: Date[]) => {
   showCalendar.value = false;
 };
 
-const onSubmit = (values: Omit<CreateHabitArg, "days">) => {
+const onSubmit = (values: Omit<UpdateHabitArg, "days">) => {
   const dateList = selectedDates.value;
   emit("submit", { ...values, dateList });
 };

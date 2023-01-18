@@ -9,12 +9,17 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { auth } from "@/firebase";
 import useUserStore from "@/stores/user";
+import useHabitsStore from "@/stores/habits";
 
 const route = useRoute();
 const userStore = useUserStore();
+const habitsStore = useHabitsStore();
 
 auth.onAuthStateChanged((user) => {
   userStore.signInWithGoogleRedirect(user);
+  if (user) {
+    habitsStore.fetchHabits();
+  }
 });
 
 const layout = computed(() =>

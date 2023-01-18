@@ -16,4 +16,4 @@ export interface Habit {
   active?: boolean;
 }
 
-export type CreateHabitArg = Omit<Habit, "id">;
+export type UpdateHabitArg = Omit<Habit, "id"> & { id?: string };

@@ -6,13 +6,16 @@
 
 <script setup lang="ts">
 // import { computed } from "vue";
+import { useRouter } from "vue-router";
 import HabitForm from "@/components/HabitForm.vue";
-// import userHabitsStore from "@/stores/habits";
-import { CreateHabitArg } from "@/models/habit.model";
+import userHabitsStore from "@/stores/habits";
+import { UpdateHabitArg } from "@/models/habit.model";
 
-// const habitStore = userHabitsStore();
+const router = useRouter();
+const habitStore = userHabitsStore();
 
-const onCreate = (value: CreateHabitArg) => {
-  console.log("onCreate value", value);
+const onCreate = (value: UpdateHabitArg) => {
+  habitStore.createHabit(value);
+  router.replace("/");
 };
 </script>

@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 import { defineStore } from "pinia";
 
 import {} from "@/firebase";
+import databaseService from "@/services/database";
 import { toggleDateInList } from "@/helpers/date";
 import { Habit } from "@/models/habit.model";
 
@@ -27,14 +28,23 @@ const useHabitsStore = defineStore("habits", {
   },
 
   actions: {
-    createHabit(payload: Omit<Habit, "id">) {
+    async fetchHabits() {
+      const result = await databaseService.getHabitsForUser();
+      this.habits = result;
+    },
+    async createHabit(payload: Omit<Habit, "id">) {
       const newHabit: Habit = {
         id: nanoid(),
         active: true,
         ...payload,
       };
-      this.habits.push(newHabit);
-      return newHabit;
+      try {
+        await databaseService.createHabit(newHabit);
+        this.habits.push(newHabit);
+        return newHabit;
+      } catch (error) {
+        console.error(error);
+      }
     },
     updateHabit(id: string, payload: Partial<Habit>) {
       const habitById = this.habitById(id);
