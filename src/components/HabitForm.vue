@@ -7,6 +7,7 @@
           name="label"
           label="Label"
           placeholder="Label"
+          clearable
           :rules="[{ required: true, message: 'Label is required' }]"
         />
         <Field
@@ -14,23 +15,25 @@
           name="description"
           label="Description"
           placeholder="Description"
+          clearable
         />
         <Field
           v-model="selectedDatesValue"
-          is-link
-          readonly
           name="selectedDates"
           label="Days Achieved"
-          placeholder="Select initial days"
+          placeholder="Select days"
+          type="textarea"
+          readonly
+          is-link
           @click="showCalendar = true"
         />
         <Calendar
           v-model:show="showCalendar"
           type="multiple"
-          @confirm="onCalendarConfirm"
           first-day-of-week="1"
           :max-date="maxDate"
           :min-date="minDate"
+          @confirm="onCalendarConfirm"
         />
       </CellGroup>
       <div style="margin: 16px">
@@ -41,35 +44,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 import { Form, Field, CellGroup, Button, Calendar } from "vant";
-import { formatDate } from "@/helpers/date";
-import { Habit } from "@/models/habit.model";
+import { formatDate, getLastSuccessiveList } from "@/helpers/date";
+import { CreateHabitArg } from "@/models/habit.model";
 
 const label = ref();
 const description = ref();
-const selectedDates = ref<Date[]>([]);
+const selectedDates = ref<string[]>([]);
 
-const selectedDatesValue = ref<string>(
-  `${selectedDates.value.length} Selected`
-);
+const selectedDatesValue = ref<string>();
 const showCalendar = ref(false);
+
+const emit = defineEmits<{
+  (e: "submit", newHabit: CreateHabitArg): void;
+}>();
 
 const maxDate = new Date();
 const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
 
 const onCalendarConfirm = (values: Date[]) => {
-  selectedDates.value = values;
-  // selectedDatesValue.value = values
-  //   .map((date) => formatDate(date, "D/M"))
-  //   .join(", ");
-  selectedDatesValue.value = `${values.length} Selected`;
+  const dateStrings = values.map((date) => formatDate(date));
+  selectedDates.value = dateStrings;
+  const lastStreak = getLastSuccessiveList(dateStrings);
+  selectedDatesValue.value = `${values.length} days selected\nLast streak: ${lastStreak.length}`;
   showCalendar.value = false;
 };
 
-const onSubmit = (values: Omit<Habit, "id | days">) => {
-  const days = selectedDates.value.map((date) => formatDate(date)).sort();
-  console.log("form submit", { ...values, days: days });
+const onSubmit = (values: Omit<CreateHabitArg, "days">) => {
+  const dateList = selectedDates.value;
+  emit("submit", { ...values, dateList });
 };
 </script>
 

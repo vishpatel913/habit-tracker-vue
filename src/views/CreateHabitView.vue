@@ -1,6 +1,6 @@
 <template>
   <div class="create">
-    <HabitForm />
+    <HabitForm @submit="onCreate" />
   </div>
 </template>
 
@@ -8,6 +8,11 @@
 // import { computed } from "vue";
 import HabitForm from "@/components/HabitForm.vue";
 // import userHabitsStore from "@/stores/habits";
+import { CreateHabitArg } from "@/models/habit.model";
 
 // const habitStore = userHabitsStore();
+
+const onCreate = (value: CreateHabitArg) => {
+  console.log("onCreate value", value);
+};
 </script>

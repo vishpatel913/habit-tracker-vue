@@ -15,3 +15,5 @@ export interface Habit {
   dateList: string[];
   active?: boolean;
 }
+
+export type CreateHabitArg = Omit<Habit, "id">;
