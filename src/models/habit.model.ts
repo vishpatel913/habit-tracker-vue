@@ -12,6 +12,6 @@ export interface Habit {
   description?: string;
   icon?: string;
   color?: Color;
-  days: string[];
+  dateList: string[];
   active?: boolean;
 }

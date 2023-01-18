@@ -1,12 +1,14 @@
+import { formatDate } from "./../helpers/date";
 import { nanoid } from "nanoid";
 import { defineStore } from "pinia";
 
 import {} from "@/firebase";
+import { toggleDateInList } from "@/helpers/date";
 import { Habit } from "@/models/habit.model";
 
 // const mockHabits: Habit[] = [
-//   { id: "HABIT_ID_1", label: "Smoke Free", days: [], active: true },
-//   { id: "HABIT_ID_2", label: "Physio Exercises", days: [], active: true },
+//   { id: "HABIT_ID_1", label: "Smoke Free", dateList: [], active: true },
+//   { id: "HABIT_ID_2", label: "Physio Exercises", dateList: [], active: true },
 // ];
 
 type RootState = {
@@ -51,11 +53,9 @@ const useHabitsStore = defineStore("habits", {
     toggleHabitDate(id: string, date: string) {
       const habit = this.habitById(id);
       if (!habit) return;
-      const [dateId] = date.split("T");
-      const nextDays = habit.days.includes(dateId)
-        ? habit.days.filter((day) => day !== dateId)
-        : habit.days.concat(dateId);
-      const updatedHabit = { ...habit, days: nextDays };
+      const dateId = formatDate(date);
+      const nextDateList = toggleDateInList(habit.dateList, dateId);
+      const updatedHabit: Habit = { ...habit, dateList: nextDateList };
       this.updateHabit(id, updatedHabit);
       return updatedHabit;
     },

@@ -3,7 +3,7 @@ import useHabits from "@/stores/habits";
 
 const TEST_HABIT = {
   label: "Test habit",
-  days: [],
+  dateList: [],
 };
 
 describe("Habits Store", () => {
@@ -18,7 +18,7 @@ describe("Habits Store", () => {
     habitsStore.createHabit(TEST_HABIT);
     expect(habitsStore.habits).toHaveLength(1);
     expect(habitsStore.habits).toMatchObject([
-      { id: expect.any(String), label: "Test habit", days: [] },
+      { id: expect.any(String), label: "Test habit", dateList: [] },
     ]);
   });
 
@@ -50,27 +50,27 @@ describe("Habits Store", () => {
     const testDays = ["2022-12-07", "2022-12-08", "2022-12-10"];
     const createdHabit = habitsStore.createHabit({
       ...TEST_HABIT,
-      days: testDays,
+      dateList: testDays,
     });
 
     habitsStore.toggleHabitDate(createdHabit.id, "2022-12-12");
     let updatedHabit = habitsStore.habitById(createdHabit.id);
-    expect(updatedHabit?.days).toHaveLength(4);
-    expect(updatedHabit?.days).toContain("2022-12-12");
+    expect(updatedHabit?.dateList).toHaveLength(4);
+    expect(updatedHabit?.dateList).toContain("2022-12-12");
 
     habitsStore.toggleHabitDate(createdHabit.id, "2022-12-08");
     updatedHabit = habitsStore.habitById(createdHabit.id);
-    expect(updatedHabit?.days).toHaveLength(3);
-    expect(updatedHabit?.days).not.toContain("2022-12-08");
+    expect(updatedHabit?.dateList).toHaveLength(3);
+    expect(updatedHabit?.dateList).not.toContain("2022-12-08");
 
     habitsStore.toggleHabitDate(createdHabit.id, "2022-12-07T00:00:00.000Z");
     updatedHabit = habitsStore.habitById(createdHabit.id);
-    expect(updatedHabit?.days).toHaveLength(2);
-    expect(updatedHabit?.days).not.toContain("2022-12-07");
+    expect(updatedHabit?.dateList).toHaveLength(2);
+    expect(updatedHabit?.dateList).not.toContain("2022-12-07");
 
     habitsStore.toggleHabitDate(createdHabit.id, "2022-12-01T23:00:00.000Z");
     updatedHabit = habitsStore.habitById(createdHabit.id);
-    expect(updatedHabit?.days).toHaveLength(3);
-    expect(updatedHabit?.days).toContain("2022-12-01");
+    expect(updatedHabit?.dateList).toHaveLength(3);
+    expect(updatedHabit?.dateList).toContain("2022-12-01");
   });
 });
