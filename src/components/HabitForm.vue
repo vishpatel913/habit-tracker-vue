@@ -76,5 +76,3 @@ const onSubmit = (values: Omit<HabitPayload, "days">) => {
   emit("submit", { ...values, dateList });
 };
 </script>
-
-<style lang="scss"></style>
