@@ -1,30 +1,33 @@
 <template>
   <div class="home">
     <HelloWorld :msg="helloMessage" />
-    <ul class="list" v-if="!!habits.length">
-      <Space direction="vertical" fill>
-        <li v-for="habit in habits" :key="habit.id">
-          <HabitTile
-            :id="habit.id"
-            :label="habit.label"
-            :description="habit.description"
-            :date-list="habit.dateList"
-          />
-        </li>
-      </Space>
-    </ul>
-    <div v-else>
-      <Empty description="No habits configured">
-        <Button @click="onCreate">Create</Button>
-      </Empty>
+    <div v-if="isLoaded">
+      <ul class="list" v-if="!!habits.length">
+        <Space direction="vertical" fill>
+          <li v-for="habit in habits" :key="habit.id">
+            <HabitTile
+              :id="habit.id"
+              :label="habit.label"
+              :description="habit.description"
+              :date-list="habit.dateList"
+            />
+          </li>
+        </Space>
+      </ul>
+      <div v-else>
+        <Empty description="No habits configured">
+          <Button @click="onCreate">Create</Button>
+        </Empty>
+      </div>
     </div>
+    <Row justify="center" v-else><Loading /></Row>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { Empty, Button, Space } from "vant";
+import { Empty, Button, Space, Loading, Row } from "vant";
 import HelloWorld from "@/components/HelloWorld.vue";
 import HabitTile from "@/components/HabitTile.vue";
 import useUserStore from "@/stores/user";
@@ -44,6 +47,7 @@ const helloMessage = computed(() =>
 );
 
 const habits = computed(() => habitsStore.habits);
+const isLoaded = computed(() => !habitsStore.loading && !!userStore.isLoggedIn);
 
 const onCreate = () => {
   router.push("/create");
