@@ -76,6 +76,18 @@ describe("date helpers", () => {
       expect(resultNoMinimum).toEqual(["2022-12-07"]);
     });
 
+    it("getDateList", () => {
+      const result = dateHelpers.getDateList("2022-12-07", "2022-12-12");
+      expect(result).toEqual([
+        "2022-12-07",
+        "2022-12-08",
+        "2022-12-09",
+        "2022-12-10",
+        "2022-12-11",
+        "2022-12-12",
+      ]);
+    });
+
     it("sliceLastDates", () => {
       const testList = [
         ...testDateList,

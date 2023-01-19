@@ -20,6 +20,9 @@
         </template>
         <template v-slot:label>
           {{ description }}
+          <div class="dates-container">
+            <DateStreakGrid :selected-dates="dateList" />
+          </div>
         </template>
       </Cell>
     </CellGroup>
@@ -30,6 +33,7 @@
 import { defineProps, defineEmits, computed } from "vue";
 import { Space, Button, Row, Icon, CellGroup, Cell } from "vant";
 
+import DateStreakGrid from "./DateStreakGrid.vue";
 import { getLatestDateStreak, formatDate, sortDateList } from "@/helpers/date";
 
 const props = defineProps<{
@@ -61,8 +65,7 @@ const handleToggle = () => {
 </script>
 
 <style>
-.container {
-  /* display: flex; */
-  /* width: 100%; */
+.dates-container {
+  padding-top: 4px;
 }
 </style>

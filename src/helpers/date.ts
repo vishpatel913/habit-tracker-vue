@@ -63,6 +63,16 @@ export const getLatestDateStreak = (
   return streakList;
 };
 
+export const getDateList = (startDate: string, endDate: string): string[] => {
+  const dates = [];
+  const startDay = dayjs(startDate);
+  const diff = Math.abs(startDay.diff(endDate, "day"));
+  for (let i = 0; i < diff + 1; i++) {
+    dates.push(formatDate(startDay.add(i, "day").format()));
+  }
+  return dates;
+};
+
 export const sliceLastDates = (dateList: string[], n: number): string[] => {
   const orderedDates = sortDateList(dateList, "ASC");
   const listLength = dateList.length;
