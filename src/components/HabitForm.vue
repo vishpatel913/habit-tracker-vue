@@ -66,7 +66,7 @@ const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
 const onCalendarConfirm = (values: Date[]) => {
   const dateStrings = values.map((date) => formatDate(date));
   selectedDates.value = dateStrings;
-  const lastStreak = getLatestDateStreak(dateStrings, 2);
+  const lastStreak = getLatestDateStreak(dateStrings, { min: 2 });
   selectedDatesValue.value = `${values.length} days selected\nLast streak: ${lastStreak.length}`;
   showCalendar.value = false;
 };
