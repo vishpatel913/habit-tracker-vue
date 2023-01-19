@@ -16,15 +16,19 @@ type DocumentTypes = {
 
 type DocumentTypeKey = keyof DocumentTypes;
 
+const getAuthUserId = async () => {
+  const userId = auth.currentUser?.uid;
+  if (!userId) throw Error("User not authenticated");
+  return userId;
+};
+
 export const getCollection = async <
   T extends DocumentTypeKey,
   R extends Array<DocumentTypes[T]>
 >(
   type: T
 ): Promise<R> => {
-  const userId = auth.currentUser?.uid;
-  if (!userId) return Promise.reject();
-
+  const userId = await getAuthUserId();
   const collectionRef = collection(db, "user", userId, type);
   const q = query(collectionRef);
   const querySnapshot = await getDocs(q);
@@ -50,9 +54,10 @@ export const setDocument = async <
   type: T,
   payload: R
 ): Promise<R> => {
-  const userId = auth.currentUser?.uid;
-  if (!userId) return Promise.reject();
-
+  const userId = await getAuthUserId();
+  if (!payload.id) {
+    throw Error("ID is required in payload to set document");
+  }
   const docRef = doc(db, "user", userId, type, payload.id);
   await setDoc(docRef, payload);
 
@@ -63,9 +68,7 @@ export const deleteDocument = async <T extends DocumentTypeKey>(
   type: T,
   id: string
 ) => {
-  const userId = auth.currentUser?.uid;
-  if (!userId) return Promise.reject();
-
+  const userId = await getAuthUserId();
   const docRef = doc(db, "user", userId, type, id);
   await deleteDoc(docRef);
 };
