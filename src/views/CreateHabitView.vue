@@ -8,13 +8,13 @@
 // import { computed } from "vue";
 import { useRouter } from "vue-router";
 import HabitForm from "@/components/HabitForm.vue";
-import userHabitsStore from "@/stores/habits";
-import { UpdateHabitArg } from "@/models/habit.model";
+import useHabitsStore from "@/stores/habits";
+import { Habit } from "@/models/habit.model";
 
 const router = useRouter();
-const habitStore = userHabitsStore();
+const habitStore = useHabitsStore();
 
-const onCreate = (value: UpdateHabitArg) => {
+const onCreate = (value: Habit) => {
   habitStore.createHabit(value);
   router.replace("/");
 };

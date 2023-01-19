@@ -2,72 +2,93 @@ import { formatDate } from "./../helpers/date";
 import { nanoid } from "nanoid";
 import { defineStore } from "pinia";
 
-import {} from "@/firebase";
-import databaseService from "@/services/database";
+import * as databaseService from "@/services/database";
 import { toggleDateInList } from "@/helpers/date";
-import { Habit } from "@/models/habit.model";
-
-// const mockHabits: Habit[] = [
-//   { id: "HABIT_ID_1", label: "Smoke Free", dateList: [], active: true },
-//   { id: "HABIT_ID_2", label: "Physio Exercises", dateList: [], active: true },
-// ];
+import { Habit, HabitPayload } from "@/models/habit.model";
 
 type RootState = {
   habits: Habit[];
 };
 
-const useHabitsStore = defineStore("habits", {
+const STORE_ID = "habits";
+
+const useHabitsStore = defineStore(STORE_ID, {
   state: (): RootState => ({
     habits: [],
   }),
 
   getters: {
     activeHabits: (state) => state.habits.filter((habit) => !!habit.active),
-    habitById: (state) => (id: string) =>
-      state.habits.find((habit) => habit.id === id),
+    habitById:
+      (state) =>
+      (id: string): Habit => {
+        const habit = state.habits.find((habit) => habit.id === id);
+        if (!habit) {
+          throw Error(`Habit with id: ${id} does not exisit`);
+        }
+        return habit;
+      },
   },
 
   actions: {
     async fetchHabits() {
-      const result = await databaseService.getHabitsForUser();
+      const result = await databaseService.getCollection("habits");
       this.habits = result;
     },
-    async createHabit(payload: Omit<Habit, "id">) {
+    async createHabit(payload: HabitPayload) {
       const newHabit: Habit = {
         id: nanoid(),
         active: true,
+        created: Date.now(),
+        updated: Date.now(),
         ...payload,
       };
       try {
-        await databaseService.createHabit(newHabit);
+        await databaseService.setDocument("habits", newHabit);
         this.habits.push(newHabit);
         return newHabit;
       } catch (error) {
         console.error(error);
       }
     },
-    updateHabit(id: string, payload: Partial<Habit>) {
-      const habitById = this.habitById(id);
-      const updatedHabit = { ...habitById, ...payload };
-      const nextHabitList = this.habits.map((habit) =>
-        habit.id === id ? { ...habit, ...updatedHabit } : habit
-      );
-      this.habits = nextHabitList;
-      return updatedHabit;
+    async updateHabit(id: string, payload: Partial<Habit>) {
+      try {
+        const habitById = this.habitById(id);
+        const updatedHabit = { ...habitById, ...payload };
+
+        await databaseService.setDocument("habits", updatedHabit);
+        const nextHabitList = this.habits.map((habit) =>
+          habit.id === id ? { ...habit, ...updatedHabit } : habit
+        );
+        this.habits = nextHabitList;
+        return updatedHabit;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    deleteHabit(id: string) {
-      const filteredHabitList = this.habits.filter((habit) => habit.id !== id);
-      this.habits = filteredHabitList;
-      return id;
+    async deleteHabit(id: string) {
+      try {
+        await databaseService.deleteDocument("habits", id);
+        const filteredHabitList = this.habits.filter(
+          (habit) => habit.id !== id
+        );
+        this.habits = filteredHabitList;
+        return id;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    toggleHabitDate(id: string, date: string) {
-      const habit = this.habitById(id);
-      if (!habit) return;
-      const dateId = formatDate(date);
-      const nextDateList = toggleDateInList(habit.dateList, dateId);
-      const updatedHabit: Habit = { ...habit, dateList: nextDateList };
-      this.updateHabit(id, updatedHabit);
-      return updatedHabit;
+    async toggleHabitDate(id: string, date: string) {
+      try {
+        const habit = this.habitById(id);
+        const dateId = formatDate(date);
+        const nextDateList = toggleDateInList(habit.dateList, dateId);
+        const updatedHabit: Habit = { ...habit, dateList: nextDateList };
+        await this.updateHabit(id, updatedHabit);
+        return updatedHabit;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 });

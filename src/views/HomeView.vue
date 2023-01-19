@@ -28,11 +28,11 @@ import { Empty, Button, Space } from "vant";
 import HelloWorld from "@/components/HelloWorld.vue";
 import HabitTile from "@/components/HabitTile.vue";
 import useUserStore from "@/stores/user";
-import userHabitsStore from "@/stores/habits";
+import useHabitsStore from "@/stores/habits";
 
 const router = useRouter();
 const userStore = useUserStore();
-const habitsStore = userHabitsStore();
+const habitsStore = useHabitsStore();
 
 const user = computed(() => ({
   ...userStore.user,
