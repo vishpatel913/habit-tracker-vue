@@ -67,6 +67,7 @@ const handleToggle = () => {
 
 <style>
 .dates-container {
+  opacity: 0.7;
   padding-top: 4px;
 }
 </style>
