@@ -1,23 +1,21 @@
 <template>
   <div class="container">
     <Row align="center" justify="space-between">
-      <Button
+      <Tag
         v-for="date in dates"
         :key="date"
         :plain="!isActive(date)"
         :type="isActive(date) || isToday(date) ? 'primary' : undefined"
-        size="mini"
-        disabled
       >
         {{ formatDateToNumber(date) }}
-      </Button>
+      </Tag>
     </Row>
   </div>
 </template>
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import { Button, Row } from "vant";
+import { Tag, Row } from "vant";
 import { getDateList, formatDate } from "@/helpers/date";
 
 const DATE_NUMBER = 10;

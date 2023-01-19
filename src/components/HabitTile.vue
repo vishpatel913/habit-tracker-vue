@@ -7,6 +7,7 @@
             <Space :size="8" align="center">
               <Button
                 :icon="isCompletedToday ? 'success' : 'plus'"
+                :plain="isCompletedToday"
                 size="small"
                 type="primary"
                 @click="handleToggle"
