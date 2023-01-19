@@ -3,26 +3,34 @@ import * as dateHelpers from "@/helpers/date";
 describe("date helpers", () => {
   const testDate = new Date(1995, 11, 7);
   const testISOString = "1995-12-07";
+  const testLongISOString = "1995-12-07T16:20:00.000Z";
   const calendarFormat = "D/M";
 
   it("formatDate", () => {
     expect(dateHelpers.formatDate(testDate)).toBe("1995-12-07");
-    expect(dateHelpers.formatDate(testDate, calendarFormat)).toBe("7/12");
-
     expect(dateHelpers.formatDate(testISOString)).toBe("1995-12-07");
-    expect(dateHelpers.formatDate(testISOString, calendarFormat)).toBe("7/12");
-    expect(dateHelpers.formatDate(testISOString + "T16:20:00.000Z")).toBe(
-      "1995-12-07"
-    );
-  });
+    expect(dateHelpers.formatDate(testLongISOString)).toBe("1995-12-07");
 
-  it("valiDateISOString", () => {
-    // expect(dateHelpers.valiDateISOString(testISOString)).toBe(testISOString);
-    // expect(dateHelpers.valiDateISOString("")).toBe();
+    expect(dateHelpers.formatDate(testDate, { format: calendarFormat })).toBe(
+      "7/12"
+    );
+    expect(dateHelpers.formatDate(testDate, { dayOffset: 1 })).toBe(
+      "1995-12-08"
+    );
+    expect(dateHelpers.formatDate(testDate, { dayOffset: -1 })).toBe(
+      "1995-12-06"
+    );
   });
 
   describe("date list helpers", () => {
     const testDateList = ["2022-04-30", "2021-10-21", "2022-11-09"];
+    const testSuccessiveDateList = [
+      ...testDateList,
+      "2022-11-08",
+      "2022-11-07",
+      "2022-12-07",
+      "2021-10-22",
+    ];
 
     it("sortDateList", () => {
       const expectedOrderedList = ["2021-10-21", "2022-04-30", "2022-11-09"];
@@ -52,16 +60,20 @@ describe("date helpers", () => {
       expect(removingResult).not.toContain("2022-11-09");
     });
 
-    it("getLastSuccessiveDates", () => {
-      const testList = [
-        ...testDateList,
+    it("getLatestDateStreak", () => {
+      const resultWithMinimum = dateHelpers.getLatestDateStreak(
+        testSuccessiveDateList,
+        { min: 2 }
+      );
+      expect(resultWithMinimum).toEqual([
+        "2022-11-09",
         "2022-11-08",
         "2022-11-07",
-        "2022-12-07",
-        "2021-10-22",
-      ];
-      const result = dateHelpers.getLastSuccessiveList(testList);
-      expect(result).toEqual(["2022-11-09", "2022-11-08", "2022-11-07"]);
+      ]);
+      const resultNoMinimum = dateHelpers.getLatestDateStreak(
+        testSuccessiveDateList
+      );
+      expect(resultNoMinimum).toEqual(["2022-12-07"]);
     });
 
     it("sliceLastDates", () => {

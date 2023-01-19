@@ -46,8 +46,8 @@
 <script setup lang="ts">
 import { ref, defineEmits } from "vue";
 import { Form, Field, CellGroup, Button, Calendar } from "vant";
-import { formatDate, getLastSuccessiveList } from "@/helpers/date";
-import { UpdateHabitArg } from "@/models/habit.model";
+import { formatDate, getLatestDateStreak } from "@/helpers/date";
+import { HabitPayload } from "@/models/habit.model";
 
 const label = ref();
 const description = ref();
@@ -57,7 +57,7 @@ const selectedDatesValue = ref<string>();
 const showCalendar = ref(false);
 
 const emit = defineEmits<{
-  (e: "submit", newHabit: UpdateHabitArg): void;
+  (e: "submit", newHabit: HabitPayload): void;
 }>();
 
 const maxDate = new Date();
@@ -66,12 +66,12 @@ const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
 const onCalendarConfirm = (values: Date[]) => {
   const dateStrings = values.map((date) => formatDate(date));
   selectedDates.value = dateStrings;
-  const lastStreak = getLastSuccessiveList(dateStrings);
+  const lastStreak = getLatestDateStreak(dateStrings, 2);
   selectedDatesValue.value = `${values.length} days selected\nLast streak: ${lastStreak.length}`;
   showCalendar.value = false;
 };
 
-const onSubmit = (values: Omit<UpdateHabitArg, "days">) => {
+const onSubmit = (values: Omit<HabitPayload, "days">) => {
   const dateList = selectedDates.value;
   emit("submit", { ...values, dateList });
 };

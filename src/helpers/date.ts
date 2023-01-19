@@ -2,11 +2,18 @@ import dayjs from "dayjs";
 
 const ISO_STRING_FORMAT = "YYYY-MM-DD";
 
+type FormatDateOptions = {
+  format?: string;
+  dayOffset?: number;
+};
 export const formatDate = (
   date: Date | string,
-  format: string = ISO_STRING_FORMAT
+  { format = ISO_STRING_FORMAT, dayOffset = 0 }: FormatDateOptions = {}
 ): string => {
-  const day = dayjs(date);
+  let day = dayjs(date);
+  if (dayOffset) {
+    day = day.add(dayOffset, "day");
+  }
   return day.format(format);
 };
 
@@ -14,11 +21,13 @@ export const sortDateList = (
   dateList: string[],
   order: "ASC" | "DESC" = "ASC"
 ): string[] => {
-  const orderedDate = dateList.sort();
-  if (order === "DESC") {
-    return orderedDate.reverse();
-  }
-  return orderedDate;
+  const isDescending = order === "DESC";
+  const orderedDates = dateList.sort((a, b) => {
+    const dateA = dayjs(a);
+    const dateB = dayjs(b);
+    return isDescending ? dateB.diff(dateA) : dateA.diff(dateB);
+  });
+  return orderedDates;
 };
 
 export const toggleDateInList = (
@@ -31,13 +40,19 @@ export const toggleDateInList = (
   return nextDateList;
 };
 
-export const getLastSuccessiveList = (dateList: string[]): string[] => {
+type LatestStreakOptions = {
+  min?: number;
+};
+export const getLatestDateStreak = (
+  dateList: string[],
+  { min }: LatestStreakOptions = {}
+): string[] => {
   const orderedDates = sortDateList(dateList, "DESC");
   let streakList: string[] = [];
   orderedDates.every((date) => {
     const lastDate = dayjs(streakList[streakList.length - 1]);
     const isNextDateSuccessive = lastDate.diff(date, "day") === 1;
-    if (!isNextDateSuccessive && streakList.length > 1) return false;
+    if (!isNextDateSuccessive && streakList.length >= (min || 1)) return false;
     if (isNextDateSuccessive) {
       streakList.push(date);
     } else {
