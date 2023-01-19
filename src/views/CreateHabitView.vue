@@ -9,12 +9,12 @@
 import { useRouter } from "vue-router";
 import HabitForm from "@/components/HabitForm.vue";
 import useHabitsStore from "@/stores/habits";
-import { Habit } from "@/models/habit.model";
+import { HabitPayload } from "@/models/habit.model";
 
 const router = useRouter();
 const habitStore = useHabitsStore();
 
-const onCreate = (value: Habit) => {
+const onCreate = (value: HabitPayload) => {
   habitStore.createHabit(value);
   router.replace("/");
 };

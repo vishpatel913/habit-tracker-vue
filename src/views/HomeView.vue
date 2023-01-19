@@ -5,12 +5,7 @@
       <ul class="list" v-if="!!habits.length">
         <Space direction="vertical" fill>
           <li v-for="habit in habits" :key="habit.id">
-            <HabitTile
-              :id="habit.id"
-              :label="habit.label"
-              :description="habit.description"
-              :date-list="habit.dateList"
-            />
+            <HabitTile v-bind="habit" @toggle="habitsStore.toggleHabitDate" />
           </li>
         </Space>
       </ul>
