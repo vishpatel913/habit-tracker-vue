@@ -22,7 +22,7 @@ commands:
 jobs:
   build-and-test:
     docker:
-      - image: cimg/node:18
+      - image: cimg/node:19.4.0
     steps:
       - checkout
       - install_dependencies
