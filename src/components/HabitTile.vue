@@ -30,16 +30,16 @@
         <template #right>
           <Space class="actions-container">
             <Button
-              type="warning"
               block
               plain
+              type="warning"
               icon="edit"
               @click="handleEdit"
             />
             <Button
-              type="danger"
               block
               plain
+              type="danger"
               icon="delete-o"
               @click="handleDelete"
             />
