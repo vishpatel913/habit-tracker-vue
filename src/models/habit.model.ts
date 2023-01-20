@@ -16,4 +16,6 @@ export interface Habit {
   updated: number;
 }
 
-export type HabitPayload = Omit<Habit, "id" | "created" | "updated">;
+export type HabitPayload = Omit<Habit, "id" | "created" | "updated"> & {
+  id?: string;
+};

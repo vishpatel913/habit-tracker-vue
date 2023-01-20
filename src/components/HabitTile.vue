@@ -28,15 +28,15 @@
           </template>
         </Cell>
         <template #right>
-          <div class="actions-container">
-            <!-- <Button
+          <Space class="actions-container">
+            <Button
               class="action-button"
               type="warning"
               block
               plain
               icon="edit"
               @click="handleEdit"
-            /> -->
+            />
             <Button
               class="action-button"
               type="danger"
@@ -45,7 +45,7 @@
               icon="delete-o"
               @click="handleDelete"
             />
-          </div>
+          </Space>
         </template>
       </SwipeCell>
     </CellGroup>
@@ -96,10 +96,9 @@ const streakLength = computed(() => {
 const handleToggle = () => {
   emit("toggle", props.id);
 };
-// const handleEdit = () => {
-//   // emit("edit", props.id);
-//   console.log("edit", props.id);
-// };
+const handleEdit = () => {
+  emit("edit", props.id);
+};
 const handleDelete = () => {
   showConfirmDialog({
     title: "Delete habit?",
@@ -115,13 +114,7 @@ const handleDelete = () => {
   padding-top: 4px;
 }
 .actions-container {
-  display: flex;
-  align-items: center;
   height: 100%;
   padding: 4px;
-}
-
-.action-button {
-  height: 100%;
 }
 </style>

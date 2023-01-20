@@ -1,16 +1,17 @@
 <template>
   <div class="habit-list">
-    <List :loading="!habitsLoaded">
-      <Space v-if="!!habits.length" direction="vertical" fill>
+    <List :loading="habitsStore.isLoading">
+      <Space v-if="!!habits?.length" direction="vertical" fill>
         <HabitTile
           v-for="habit in habits"
           :key="habit.id"
           v-bind="habit"
           @toggle="habitsStore.toggleHabitDate"
           @delete="habitsStore.deleteHabit"
+          @edit="onEdit"
         />
       </Space>
-      <Empty v-else-if="!!habitsLoaded" description="No habits configured">
+      <Empty v-else description="No habits configured">
         <Button @click="onCreate">Create</Button>
       </Empty>
     </List>
@@ -29,9 +30,11 @@ const router = useRouter();
 const habitsStore = useHabitsStore();
 
 const habits = computed(() => habitsStore.habits);
-const habitsLoaded = computed(() => !!habitsStore.hasLoaded);
 
 const onCreate = () => {
   router.push("/create");
+};
+const onEdit = (id: string) => {
+  router.push(`/habit/${id}/edit`);
 };
 </script>

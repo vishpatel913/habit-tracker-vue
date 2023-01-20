@@ -1,6 +1,6 @@
 <template>
   <div class="create">
-    <HabitForm @submit="onCreate" />
+    <HabitForm @submit="onCreate" @cancel="onCancel" />
   </div>
 </template>
 
@@ -16,6 +16,10 @@ const habitStore = useHabitsStore();
 
 const onCreate = (value: HabitPayload) => {
   habitStore.createHabit(value);
-  router.replace("/");
+  router.push("/");
+};
+
+const onCancel = () => {
+  router.push("/");
 };
 </script>
