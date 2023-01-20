@@ -1,45 +1,45 @@
-version: 2.1
+# version: 2.1
 
-commands:
-  install_dependencies:
-    description: 'Install project dependencies'
-    steps:
-      - restore_cache:
-          keys:
-            # Find a cache corresponding to this specific yarn.lock
-            - v2-yarn-deps-{{ checksum "yarn.lock" }}
-            # Fallback cache to be used
-            - v2-yarn-deps-
-      - run:
-          name: Install Dependencies
-          command: yarn install
-      - run: yarn add -D firebase-tools      
-      - save_cache:
-          key: v2-yarn-deps-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
+# commands:
+#   install_dependencies:
+#     description: 'Install project dependencies'
+#     steps:
+#       - restore_cache:
+#           keys:
+#             # Find a cache corresponding to this specific yarn.lock
+#             - v2-yarn-deps-{{ checksum "yarn.lock" }}
+#             # Fallback cache to be used
+#             - v2-yarn-deps-
+#       - run:
+#           name: Install Dependencies
+#           command: yarn install
+#       - run: yarn add -D firebase-tools      
+#       - save_cache:
+#           key: v2-yarn-deps-{{ checksum "yarn.lock" }}
+#           paths:
+#             - ./node_modules
 
-jobs:
-  build-and-test:
-    docker:
-      - image: cimg/node:19.4.0
-    steps:
-      - checkout
-      - install_dependencies
-      - run:
-          name: Run lint for the application
-          command: yarn lint
-      - run:
-          name: Run test for the application
-          command: yarn test
-      - run:
-          name: Build application for production
-          command: yarn build 
-      - run:
-          name: Deploy app to Firebase
-          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN                  
+# jobs:
+#   build-and-test:
+#     docker:
+#       - image: cimg/node:19.4.0
+#     steps:
+#       - checkout
+#       - install_dependencies
+#       - run:
+#           name: Run lint for the application
+#           command: yarn lint
+#       - run:
+#           name: Run test for the application
+#           command: yarn test
+#       - run:
+#           name: Build application for production
+#           command: yarn build 
+#       - run:
+#           name: Deploy app to Firebase
+#           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN                  
 
-workflows:
-  build-and-test:
-    jobs:
-      - build-and-test
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - build-and-test
