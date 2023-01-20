@@ -7,6 +7,7 @@
           :key="habit.id"
           v-bind="habit"
           @toggle="habitsStore.toggleHabitDate"
+          @delete="habitsStore.deleteHabit"
         />
       </Space>
       <Empty v-else-if="!!habitsLoaded" description="No habits configured">
