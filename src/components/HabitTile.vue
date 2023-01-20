@@ -102,9 +102,11 @@ const handleEdit = () => {
 const handleDelete = () => {
   showConfirmDialog({
     title: "Delete habit?",
-  }).then(() => {
-    emit("delete", props.id);
-  });
+  })
+    .then(() => {
+      emit("delete", props.id);
+    })
+    .catch(() => null);
 };
 </script>
 
