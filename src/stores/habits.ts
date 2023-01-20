@@ -8,7 +8,8 @@ import { Habit, HabitPayload } from "@/models/habit.model";
 
 type RootState = {
   habits: Habit[];
-  hasLoaded: boolean;
+  isLoading: boolean;
+  hasInitiallyLoaded: boolean;
 };
 
 const STORE_ID = "habits";
@@ -16,15 +17,16 @@ const STORE_ID = "habits";
 const useHabitsStore = defineStore(STORE_ID, {
   state: (): RootState => ({
     habits: [],
-    hasLoaded: false,
+    isLoading: false,
+    hasInitiallyLoaded: false,
   }),
 
   getters: {
-    activeHabits: (state) => state.habits.filter((habit) => !!habit.active),
+    activeHabits: (state) => state.habits?.filter((habit) => !!habit.active),
     habitById:
       (state) =>
       (id: string): Habit => {
-        const habit = state.habits.find((habit) => habit.id === id);
+        const habit = state.habits?.find((habit) => habit.id === id);
         if (!habit) {
           throw Error(`Habit with id: ${id} does not exisit`);
         }
@@ -34,9 +36,11 @@ const useHabitsStore = defineStore(STORE_ID, {
 
   actions: {
     async fetchHabits() {
+      this.isLoading = true;
       const result = await databaseService.getCollection("habits");
+      this.hasInitiallyLoaded = true;
       this.habits = result;
-      this.hasLoaded = true;
+      this.isLoading = false;
     },
     async createHabit(payload: HabitPayload) {
       const newHabit: Habit = {
@@ -48,7 +52,7 @@ const useHabitsStore = defineStore(STORE_ID, {
       };
       try {
         await databaseService.setDocument("habits", newHabit);
-        this.habits.push(newHabit);
+        this.habits?.push(newHabit);
         return newHabit;
       } catch (error) {
         console.error(error);
@@ -64,7 +68,7 @@ const useHabitsStore = defineStore(STORE_ID, {
         };
 
         await databaseService.setDocument("habits", updatedHabit);
-        const nextHabitList = this.habits.map((habit) =>
+        const nextHabitList = this.habits?.map((habit) =>
           habit.id === id ? { ...habit, ...updatedHabit } : habit
         );
         this.habits = nextHabitList;
@@ -76,7 +80,7 @@ const useHabitsStore = defineStore(STORE_ID, {
     async deleteHabit(id: string) {
       try {
         await databaseService.deleteDocument("habits", id);
-        const filteredHabitList = this.habits.filter(
+        const filteredHabitList = this.habits?.filter(
           (habit) => habit.id !== id
         );
         this.habits = filteredHabitList;

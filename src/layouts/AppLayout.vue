@@ -2,7 +2,10 @@
   <div class="container">
     <AppHeader :has-back-button="hasBackButton" />
     <component :is="layout">
-      <slot />
+      <slot v-if="habitsStore.hasInitiallyLoaded" />
+      <Row v-else justify="center">
+        <Loading />
+      </Row>
     </component>
     <AppNavigation />
   </div>
@@ -11,6 +14,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { Row, Loading } from "vant";
 
 import { auth } from "@/firebase";
 import AppHeader from "@/components/AppHeader.vue";

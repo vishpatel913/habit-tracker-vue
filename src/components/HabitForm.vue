@@ -31,34 +31,57 @@
           v-model:show="showCalendar"
           type="multiple"
           first-day-of-week="1"
+          :default-date="defaultDates"
           :max-date="maxDate"
           :min-date="minDate"
           @confirm="onCalendarConfirm"
         />
       </CellGroup>
-      <div style="margin: 16px">
-        <Button native-type="submit">Create</Button>
-      </div>
+
+      <Row class="button-container" :gutter="16">
+        <Col :span="12">
+          <Button @click="onCancel" block>Cancel</Button>
+        </Col>
+        <Col :span="12">
+          <Button type="primary" native-type="submit" block> Save </Button>
+        </Col>
+      </Row>
     </Form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from "vue";
-import { Form, Field, CellGroup, Button, Calendar } from "vant";
-import { formatDate, getLatestDateStreak } from "@/helpers/date";
-import { HabitPayload } from "@/models/habit.model";
+import { defineProps, defineEmits, computed, ref } from "vue";
+import { Form, Field, CellGroup, Button, Calendar, Row, Col } from "vant";
+import { formatDate } from "@/helpers/date";
+import { Habit, HabitPayload } from "@/models/habit.model";
 
-const label = ref();
-const description = ref();
-const selectedDates = ref<string[]>([]);
-
-const selectedDatesValue = ref<string>();
-const showCalendar = ref(false);
+const props = defineProps<{
+  habit?: Habit;
+}>();
 
 const emit = defineEmits<{
   (e: "submit", newHabit: HabitPayload): void;
+  (e: "cancel"): void;
 }>();
+
+const label = ref(props.habit?.label);
+const description = ref(props.habit?.description);
+const selectedDates = ref<string[]>(props.habit?.dateList || []);
+
+const getSelectedDateValue = (length?: number) =>
+  length ? `${length} days selected` : undefined;
+const selectedDatesValue = ref<string | undefined>(
+  getSelectedDateValue(props.habit?.dateList.length)
+);
+const showCalendar = ref(false);
+const defaultDates = computed(() => {
+  const dateList = props.habit?.dateList;
+  if (dateList?.length) {
+    return dateList.map((date) => new Date(date));
+  }
+  return undefined;
+});
 
 const maxDate = new Date();
 const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
@@ -66,13 +89,26 @@ const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
 const onCalendarConfirm = (values: Date[]) => {
   const dateStrings = values.map((date) => formatDate(date));
   selectedDates.value = dateStrings;
-  const lastStreak = getLatestDateStreak(dateStrings, { min: 2 });
-  selectedDatesValue.value = `${values.length} days selected\nLast streak: ${lastStreak.length}`;
+  selectedDatesValue.value = getSelectedDateValue(values.length);
   showCalendar.value = false;
 };
 
 const onSubmit = (values: Omit<HabitPayload, "days">) => {
   const dateList = selectedDates.value;
-  emit("submit", { ...values, dateList });
+  const submitValue = { ...values, dateList };
+  if (props.habit?.id) {
+    submitValue.id = props.habit?.id;
+  }
+  emit("submit", submitValue);
+};
+const onCancel = () => {
+  emit("cancel");
 };
 </script>
+
+<style>
+.button-container {
+  padding: 0 16px;
+  margin-top: 16px;
+}
+</style>
