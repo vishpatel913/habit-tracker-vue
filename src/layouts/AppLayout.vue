@@ -1,30 +1,26 @@
 <template>
   <div class="container">
+    <AppHeader :has-back-button="hasBackButton" />
     <component :is="layout">
       <slot />
     </component>
-    <Tabbar v-model="currentPage" placeholder>
-      <TabbarItem name="home" icon="home-o" to="/">Home</TabbarItem>
-      <TabbarItem name="create" icon="plus" to="/create">Create</TabbarItem>
-      <TabbarItem name="settings" icon="setting-o">Settings</TabbarItem>
-    </Tabbar>
+    <AppNavigation />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { Tabbar, TabbarItem } from "vant";
 
 import { auth } from "@/firebase";
+import AppHeader from "@/components/AppHeader.vue";
+import AppNavigation from "@/components/AppNavigation.vue";
 import useUserStore from "@/stores/user";
 import useHabitsStore from "@/stores/habits";
 
 const route = useRoute();
 const userStore = useUserStore();
 const habitsStore = useHabitsStore();
-
-const currentPage = computed(() => route.name?.toString() || "home");
 
 auth.onAuthStateChanged((user) => {
   userStore.signInWithGoogleRedirect(user);
@@ -33,7 +29,7 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-console.log("route", route);
+const hasBackButton = computed(() => !!route.meta.hasBack);
 
 const layout = computed(() =>
   route.meta.layout ? () => import(`@/layouts/${route.meta.layout}.vue`) : "div"
@@ -42,6 +38,7 @@ const layout = computed(() =>
 
 <style scoped>
 .container {
+  --van-tabbar-height: 56px;
   height: 100%;
   padding: 1rem;
   overflow-x: hidden;
