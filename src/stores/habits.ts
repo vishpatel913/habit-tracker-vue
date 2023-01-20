@@ -8,7 +8,7 @@ import { Habit, HabitPayload } from "@/models/habit.model";
 
 type RootState = {
   habits: Habit[];
-  loading: boolean;
+  hasLoaded: boolean;
 };
 
 const STORE_ID = "habits";
@@ -16,7 +16,7 @@ const STORE_ID = "habits";
 const useHabitsStore = defineStore(STORE_ID, {
   state: (): RootState => ({
     habits: [],
-    loading: false,
+    hasLoaded: false,
   }),
 
   getters: {
@@ -34,10 +34,9 @@ const useHabitsStore = defineStore(STORE_ID, {
 
   actions: {
     async fetchHabits() {
-      this.loading = true;
       const result = await databaseService.getCollection("habits");
       this.habits = result;
-      this.loading = false;
+      this.hasLoaded = true;
     },
     async createHabit(payload: HabitPayload) {
       const newHabit: Habit = {
