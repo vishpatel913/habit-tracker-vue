@@ -28,13 +28,13 @@ jobs:
       - install_dependencies
       - run:
           name: Run lint for the application
-          command: npm run lint
+          command: yarn lint
       - run:
           name: Run test for the application
-          command: npm run test
+          command: yarn test
       - run:
           name: Build application for production
-          command: npm run build 
+          command: yarn build 
       - run:
           name: Deploy app to Firebase
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN                  
