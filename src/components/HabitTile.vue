@@ -30,7 +30,6 @@
         <template #right>
           <Space class="actions-container">
             <Button
-              class="action-button"
               type="warning"
               block
               plain
@@ -38,7 +37,6 @@
               @click="handleEdit"
             />
             <Button
-              class="action-button"
               type="danger"
               block
               plain
