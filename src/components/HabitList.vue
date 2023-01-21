@@ -24,12 +24,13 @@ import { useRouter } from "vue-router";
 import { Empty, Button, Space, List } from "vant";
 
 import HabitTile from "@/components/HabitTile.vue";
+import { sortHabitsByKey } from "@/helpers/sort";
 import useHabitsStore from "@/stores/habits";
 
 const router = useRouter();
 const habitsStore = useHabitsStore();
 
-const habits = computed(() => habitsStore.habits);
+const habits = computed(() => sortHabitsByKey(habitsStore.habits, "created"));
 
 const onCreate = () => {
   router.push("/create");

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { SortKey } from "./sort";
 
 const ISO_STRING_FORMAT = "YYYY-MM-DD";
 
@@ -19,7 +20,7 @@ export const formatDate = (
 
 export const sortDateList = (
   dateList: string[],
-  order: "ASC" | "DESC" = "ASC"
+  order: SortKey = "ASC"
 ): string[] => {
   const isDescending = order === "DESC";
   const orderedDates = dateList.sort((a, b) => {
