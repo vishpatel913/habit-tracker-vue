@@ -26,6 +26,11 @@
               <DateStreakGrid :selected-dates="dateList" />
             </div>
           </template>
+          <template #right-icon>
+            <div class="click-icon-container">
+              <Icon name="arrow" @click="handleClick" size="large" />
+            </div>
+          </template>
         </Cell>
         <template #right>
           <Space class="actions-container">
@@ -74,6 +79,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
   (e: "toggle", id: string): void;
+  (e: "view", id: string): void;
   (e: "edit", id: string): void;
   (e: "delete", id: string): void;
 }>();
@@ -93,6 +99,9 @@ const streakLength = computed(() => {
 
 const handleToggle = () => {
   emit("toggle", props.id);
+};
+const handleClick = () => {
+  emit("view", props.id);
 };
 const handleEdit = () => {
   emit("edit", props.id);
@@ -116,5 +125,11 @@ const handleDelete = () => {
 .actions-container {
   height: 100%;
   padding: 4px;
+}
+.click-icon-container {
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  height: 32px;
 }
 </style>

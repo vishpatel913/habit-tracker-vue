@@ -11,6 +11,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/CreateHabitView.vue"),
   },
   {
+    path: "/habit/:id",
+    name: "habit",
+    component: () => import("@/views/HabitView.vue"),
+    meta: {
+      hasBack: true,
+    },
+  },
+  {
     path: "/habit/:id/edit",
     name: "edit",
     component: () => import("@/views/EditHabitView.vue"),

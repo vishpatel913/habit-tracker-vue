@@ -8,6 +8,7 @@
           v-bind="habit"
           @toggle="habitsStore.toggleHabitDate"
           @delete="habitsStore.deleteHabit"
+          @view="onView"
           @edit="onEdit"
         />
       </Space>
@@ -34,6 +35,9 @@ const habits = computed(() => sortHabitsByKey(habitsStore.habits, "created"));
 
 const onCreate = () => {
   router.push("/create");
+};
+const onView = (id: string) => {
+  router.push(`/habit/${id}`);
 };
 const onEdit = (id: string) => {
   router.push(`/habit/${id}/edit`);
