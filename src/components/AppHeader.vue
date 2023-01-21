@@ -5,12 +5,15 @@
         <Icon name="arrow-left" size="large" />
       </template>
       <template #title>
-        <img
-          alt="Vue logo"
-          src="../assets/logo.png"
-          class="logo"
-          @click="handleHome"
-        />
+        <Space align="center" class="title-container">
+          <img
+            alt="App logo"
+            src="../assets/logo.png"
+            class="logo"
+            @click="handleHome"
+          />
+          Habituary
+        </Space>
       </template>
     </NavBar>
   </header>
@@ -19,7 +22,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { useRouter } from "vue-router";
-import { NavBar, Icon } from "vant";
+import { NavBar, Icon, Space } from "vant";
 
 defineProps<{
   userName?: string;
@@ -35,8 +38,11 @@ const handleBack = () => router.go(-1);
 .header {
   --van-nav-bar-height: 56px;
 }
+.title-container {
+  display: flex;
+}
 .logo {
-  height: 40px;
+  height: 32px;
   vertical-align: middle;
 }
 </style>
