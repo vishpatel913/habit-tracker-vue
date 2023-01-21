@@ -1,7 +1,5 @@
 .van-theme-dark body {
- /* color: #f5f5f5; */
-  /* background-color: #2c3e50; */
-  background-color: black;
+  background-color: var(--van-background);
 }
 
 
@@ -16,12 +14,12 @@
   --van-gray-6: #969799;
   --van-gray-7: #646566;
   --van-gray-8: #323233;
-  --van-red: #ee0a24;
-  --van-blue: #1989fa;
+  --van-red: #E00B5C;
+  --van-blue: #5068eb;
   --van-orange: #ff976a;
-  --van-orange-dark: #ed6a0c;
+  --van-orange-dark: #f66f2c;
   --van-orange-light: #fffbe8;
-  --van-green: #07c160;
+  --van-green: #00b286;
 
   --van-gradient-red: linear-gradient(to right, #ff6034, #ee0a24);
   --van-gradient-orange: linear-gradient(to right, #ffd01e, #ff8917);
@@ -33,22 +31,14 @@
   --van-active-opacity: 0.6;
   --van-disabled-opacity: 0.5;
 
-  --van-text-color: #f5f5f5;
-  --van-text-color-2: #707070;
-  --van-text-color-3: #4d4d4d;
-  --van-border-color: #3a3a3c;
-  --van-active-color: #3a3a3c;
-  --van-background: #000;
-  --van-background-2: #1c1c1e;
-  --van-background-3: #37363b;
-
-  /* --van-text-color: var(--van-gray-8);
-  --van-text-color-2: var(--van-gray-6);
-  --van-text-color-3: var(--van-gray-5);
-  --van-active-color: var(--van-gray-2);
-  --van-background: var(--van-gray-1);
-  --van-background-2: var(--van-white);
-  --van-border-color: var(--van-gray-3); */
+  --van-text-color: rgba(255, 255, 255, 0.9);
+  --van-text-color-2: rgba(255, 255, 255, 0.5);
+  --van-text-color-3: rgba(255, 255, 255, 0.35);
+  --van-border-color: rgba(255, 255, 255, 0.2);
+  --van-active-color: rgba(255, 255, 255, 0.2);
+  --van-background: #151a2f;
+  --van-background-2: #19213f;
+  --van-background-3: #27335f;
 
   --van-padding-base: 4px;
   --van-padding-xs: 8px;

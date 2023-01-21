@@ -2,7 +2,7 @@
   <div class="container">
     <CellGroup inset>
       <SwipeCell>
-        <Cell>
+        <Cell :border="false">
           <template #title>
             <Row justify="space-between" align="center">
               <Space :size="8" align="center">
@@ -119,7 +119,6 @@ const handleDelete = () => {
 
 <style scoped>
 .dates-container {
-  opacity: 0.7;
   padding-top: 4px;
 }
 .actions-container {

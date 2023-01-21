@@ -25,6 +25,7 @@
           type="textarea"
           readonly
           is-link
+          :border="false"
           @click="showCalendar = true"
         />
         <Calendar
