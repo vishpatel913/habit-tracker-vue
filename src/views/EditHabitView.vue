@@ -7,9 +7,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import HabitForm from "@/components/HabitForm.vue";
-import useHabitsStore from "@/stores/habits";
-import { HabitPayload } from "@/models/habit.model";
+
+import { HabitForm } from "@/components";
+import { useHabitsStore } from "@/store";
+import { HabitPayload } from "@/models";
 
 const route = useRoute();
 const router = useRouter();

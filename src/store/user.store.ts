@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 
 import { auth } from "@/firebase";
-import { User } from "@/models/user.model";
+import { User } from "@/models";
 
 type RootState = {
   user: User | null;

@@ -8,8 +8,7 @@
 // import { computed } from "vue";
 import { useRoute } from "vue-router";
 
-// import HabitList from "@/components/HabitList.vue";
-import useHabitsStore from "@/stores/habits";
+import { useHabitsStore } from "@/store";
 
 const route = useRoute();
 const habitStore = useHabitsStore();

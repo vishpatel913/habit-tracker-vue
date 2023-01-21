@@ -17,10 +17,9 @@ import { useRoute } from "vue-router";
 import { Row, Loading } from "vant";
 
 import { auth } from "@/firebase";
-import AppHeader from "@/components/AppHeader.vue";
-import AppNavigation from "@/components/AppNavigation.vue";
-import useUserStore from "@/stores/user";
-import useHabitsStore from "@/stores/habits";
+
+import { AppHeader, AppNavigation } from "@/components";
+import { useUserStore, useHabitsStore } from "@/store";
 
 const route = useRoute();
 const userStore = useUserStore();

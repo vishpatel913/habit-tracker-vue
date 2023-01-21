@@ -69,7 +69,7 @@ import {
 } from "vant";
 
 import DateStreakGrid from "./DateStreakGrid.vue";
-import { getLatestDateStreak, formatDate, sortDateList } from "@/helpers/date";
+import { getLatestDateStreak, formatDate, sortDateList } from "@/helpers";
 
 const props = defineProps<{
   id: string;

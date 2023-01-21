@@ -8,7 +8,7 @@
         <Space align="center" class="title-container">
           <img
             alt="App logo"
-            src="../assets/logo.png"
+            src="../../assets/logo.png"
             class="logo"
             @click="handleHome"
           />

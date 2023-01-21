@@ -8,7 +8,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { auth, db } from "@/firebase";
-import { Habit } from "@/models/habit.model";
+import { Habit } from "@/models";
 
 type DocumentTypes = {
   habits: Habit;

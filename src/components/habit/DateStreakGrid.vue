@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { Tag, Row } from "vant";
-import { getDateList, formatDate } from "@/helpers/date";
+import { getDateList, formatDate } from "@/helpers";
 
 const DATE_NUMBER = 10;
 

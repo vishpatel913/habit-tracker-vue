@@ -24,9 +24,10 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { Empty, Button, Space, List } from "vant";
 
-import HabitTile from "@/components/HabitTile.vue";
-import { sortHabitsByKey } from "@/helpers/sort";
-import useHabitsStore from "@/stores/habits";
+import { sortHabitsByKey } from "@/helpers";
+import { useHabitsStore } from "@/store";
+
+import HabitTile from "./HabitTile.vue";
 
 const router = useRouter();
 const habitsStore = useHabitsStore();

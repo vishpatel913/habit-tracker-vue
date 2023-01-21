@@ -1,4 +1,4 @@
-import { Habit } from "@/models/habit.model";
+import { Habit } from "@/models";
 
 export type SortKey = "ASC" | "DESC";
 

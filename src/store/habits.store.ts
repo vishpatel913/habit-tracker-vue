@@ -1,10 +1,10 @@
-import { formatDate } from "./../helpers/date";
+import { formatDate } from "../helpers/date";
 import { nanoid } from "nanoid";
 import { defineStore } from "pinia";
 
 import * as databaseService from "@/services/database";
 import { toggleDateInList } from "@/helpers/date";
-import { Habit, HabitPayload } from "@/models/habit.model";
+import { Habit, HabitPayload } from "@/models";
 
 type RootState = {
   habits: Habit[];

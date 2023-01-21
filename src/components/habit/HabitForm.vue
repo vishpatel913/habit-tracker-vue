@@ -53,8 +53,8 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, computed, ref } from "vue";
 import { Form, Field, CellGroup, Button, Calendar, Row, Col } from "vant";
-import { formatDate } from "@/helpers/date";
-import { Habit, HabitPayload } from "@/models/habit.model";
+import { formatDate } from "@/helpers";
+import { Habit, HabitPayload } from "@/models";
 
 const props = defineProps<{
   habit?: Habit;
