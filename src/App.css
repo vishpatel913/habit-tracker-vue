@@ -6,7 +6,7 @@
 
 html {
   height: 100%;
-  background: var(--van-gradient-background);
+  background: var(--van-background);
   color: var(--van-text-color);
   font-family: Avenir, Helvetica, Arial, sans-serif;
   overflow: hidden;
@@ -15,6 +15,7 @@ html {
 }
 
 body {
+  background: var(--van-gradient-background-overlay);
   height: 100%;
   overflow: auto;
   
