@@ -1,6 +1,6 @@
 <template>
   <nav class="navigation">
-    <Tabbar placeholder route>
+    <Tabbar fixed placeholder route>
       <TabbarItem name="home" icon="home-o" to="/">Home</TabbarItem>
       <TabbarItem name="create" icon="plus" to="/create">Create</TabbarItem>
       <TabbarItem name="settings" icon="setting-o">Settings</TabbarItem>

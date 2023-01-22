@@ -37,6 +37,9 @@ const handleBack = () => router.go(-1);
 <style scoped>
 .header {
   --van-nav-bar-height: 56px;
+  --van-nav-bar-background: var(--van-background);
+  --van-nav-bar-icon-color: var(--van-text-color);
+  --van-nav-bar-text-color: var(--van-text-color);
 }
 .title-container {
   display: flex;
