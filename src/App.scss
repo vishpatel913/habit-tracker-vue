@@ -1,24 +1,17 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 * {
   box-sizing: border-box;
 }
 
-html {
+body {
   height: 100%;
-  background: var(--van-background);
+  background: var(--van-gradient-background);
   color: var(--van-text-color);
   font-family: Avenir, Helvetica, Arial, sans-serif;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background: var(--van-gradient-background-overlay);
-  height: 100%;
-  overflow: auto;
-  
 }
 
 /* ul {

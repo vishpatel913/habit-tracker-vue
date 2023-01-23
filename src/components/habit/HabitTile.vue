@@ -7,15 +7,18 @@
             <Row justify="space-between" align="center">
               <Space :size="8" align="center">
                 <Button
-                  :icon="isCompletedToday ? 'success' : 'plus'"
-                  :plain="isCompletedToday"
+                  :icon="lastCompletedToday ? 'success' : 'plus'"
+                  :plain="lastCompletedToday"
                   size="small"
                   type="primary"
                   @click="handleToggle"
                 />
                 {{ label }}
               </Space>
-              <div v-if="showStreak">
+              <div
+                v-if="lastCompletedToday || lastCompletedYesterday"
+                :class="lastCompletedYesterday && 'disabled'"
+              >
                 {{ streakLength }} <Icon name="fire-o" />
               </div>
             </Row>
@@ -88,9 +91,11 @@ const today = formatDate(new Date());
 const yesterday = formatDate(today, { dayOffset: -1 });
 
 const descendingDateList = computed(() => sortDateList(props.dateList, "DESC"));
-const isCompletedToday = computed(() => descendingDateList.value[0] === today);
-const showStreak = computed(() =>
-  [today, yesterday].includes(descendingDateList.value[0])
+const lastCompletedToday = computed(
+  () => descendingDateList.value[0] === today
+);
+const lastCompletedYesterday = computed(
+  () => descendingDateList.value[0] === yesterday
 );
 const streakLength = computed(() => {
   const latestBatch = getLatestDateStreak(props.dateList);
@@ -118,6 +123,9 @@ const handleDelete = () => {
 </script>
 
 <style scoped>
+.disabled {
+  opacity: var(--van-disabled-opacity);
+}
 .dates-container {
   padding-top: 4px;
 }

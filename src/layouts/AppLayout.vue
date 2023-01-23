@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
+  <div class="layout-container">
     <AppHeader :has-back-button="hasBackButton" />
-    <component :is="layout">
-      <slot v-if="habitsStore.hasInitiallyLoaded" />
-      <Row v-else justify="center">
-        <Loading />
-      </Row>
-    </component>
+    <div class="layout-content">
+      <component :is="layout">
+        <slot v-if="habitsStore.hasInitiallyLoaded" />
+        <Row v-else justify="center">
+          <Loading />
+        </Row>
+      </component>
+    </div>
     <AppNavigation />
   </div>
 </template>
@@ -40,10 +42,13 @@ const layout = computed(() =>
 </script>
 
 <style scoped>
-.container {
-  --van-tabbar-height: 56px;
+.layout-container {
   height: 100%;
-  padding: 1rem;
+  overflow: hidden;
+}
+.layout-content {
+  height: calc(100vh - var(--van-nav-bar-height) - var(--van-tabbar-height));
+  padding: var(--van-padding-md) 0;
   overflow-x: hidden;
   overflow-y: auto;
 }
