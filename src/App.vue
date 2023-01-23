@@ -9,6 +9,8 @@
 <script setup lang="ts">
 import { ConfigProvider } from "vant";
 import AppLayout from "@/layouts/AppLayout.vue";
-
-import "./App.css";
 </script>
+
+<style lang="scss">
+@import "./App.scss";
+</style>

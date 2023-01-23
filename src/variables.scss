@@ -1,3 +1,6 @@
+$background-color: #151a2f;
+$text-color: #fff;
+
 .van-theme-dark:root {
   --van-black: #000;
   --van-white: #fff;
@@ -28,14 +31,15 @@
   --van-active-opacity: 0.6;
   --van-disabled-opacity: 0.5;
 
-  --van-text-color: rgba(255, 255, 255, 0.9);
-  --van-text-color-2: rgba(255, 255, 255, 0.5);
-  --van-text-color-3: rgba(255, 255, 255, 0.35);
-  --van-active-color: rgba(255, 255, 255, 0.2);
-  --van-border-color: rgba(255, 255, 255, 0.1);
-  --van-background: #151a2f;
-  --van-background-2: #19213f;
-  --van-background-3: #27335f;
+  --van-text-color: #{rgba($text-color, 0.9)};
+  --van-text-color-2: #{rgba($text-color, 0.5)};
+  --van-text-color-3: #{rgba($text-color, 0.35)};
+  --van-active-color: #{rgba($text-color, 0.2)};
+  --van-border-color: #{rgba($text-color, 0.1)};
+  --van-background: #{$background-color};
+  --van-background-2: #{lighten($background-color, 5%)};
+  --van-background-3: #{lighten($background-color, 10%)};
+
 
   --van-padding-base: 4px;
   --van-padding-xs: 8px;
